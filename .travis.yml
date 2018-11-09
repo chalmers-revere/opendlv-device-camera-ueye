@@ -21,8 +21,8 @@ script:
 - git clone --depth 1 https://chromium.googlesource.com/libyuv/libyuv && cd libyuv
   && make -f linux.mk libyuv.a && sudo cp libyuv.a /usr/lib
   && cd include && sudo cp -r * /usr/include && cd ../..
-- cd /tmp && wget https://www.1stvision.com/cameras/IDS/sw/uEye-Linux-4.90.06-64.tgz && tar xvzf uEye-Linux-4.90.06-64.tgz && sudo ./ueyesdk-setup-4.90.06-usb-amd64.gz.run --nox11
-- cd && cd chalmers-revere/opendlv-device-camera-ueye && mkdir -p build && cd build && cmake .. && make
+- cd /tmp && wget https://www.1stvision.com/cameras/IDS/sw/uEye-Linux-4.90.06-64.tgz && tar xvzf uEye-Linux-4.90.06-64.tgz && sudo ./ueyesdk-setup-4.90.06-usb-amd64.gz.run --nox11 && cd -
+- mkdir -p build && cd build && cmake .. && make
 notifications:
   email:
     on_success: never
