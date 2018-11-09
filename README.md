@@ -24,18 +24,18 @@ dependency is shipped as part of the source distribution:
 )](https://www.gnu.org/licenses/gpl-3.0.txt)
 * [libyuv](https://chromium.googlesource.com/libyuv/libyuv/+/master) - [![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) - [Google Patent License Conditions](https://chromium.googlesource.com/libyuv/libyuv/+/master/PATENTS)
 
+To use this microservice, you need to install the drivers on the host machine from [here](https://www.1stvision.com/cameras/IDS-imaging-software).
+
 
 ## Usage
 This microservice is created automatically on changes to this repository via Docker's public registry for:
 * [x86_64](https://hub.docker.com/r/chalmersrevere/opendlv-device-camera-ueye-amd64/tags/)
-* [armhf](https://hub.docker.com/r/chalmersrevere/opendlv-device-camera-ueye-armhf/tags/)
-* [aarch64](https://hub.docker.com/r/chalmersrevere/opendlv-device-camera-ueye-aarch64/tags/)
 
 To run this microservice using our pre-built Docker multi-arch images to open
 a supported camera, simply start it as follows:
 
 ```
-docker run --rm -ti --init --ipc=host -v /tmp:/tmp -e DISPLAY=$DISPLAY chalmersrevere/opendlv-device-camera-ueye-multi:v0.0.1 --width=752 --height=480 --pixel_clock=10 --freq=20 --verbose
+docker run --rm -ti --init --ipc=host -v /tmp:/tmp --pid=host -v /var/run:/var/run -e DISPLAY=$DISPLAY chalmersrevere/opendlv-device-camera-ueye-amd64:v0.0.1 --width=752 --height=480 --pixel_clock=10 --freq=20 --verbose
 ```
 
 ## Build from sources on the example of Ubuntu 16.04 LTS
