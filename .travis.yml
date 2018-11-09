@@ -1,0 +1,35 @@
+language: cpp
+
+branches:
+  only:
+  - "/^master$/"
+  - "/^pre-release$/"
+
+cache: ccache
+
+compiler:
+- gcc
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-6
+    - libx11-dev
+    - linux-headers-$(uname -r)
+
+install:
+- "[ $CC = gcc ] && export CC=gcc-6 || true"
+- "[ $CXX = g++ ] && export CXX=g++-6 || true"
+
+script:
+- git clone --depth 1 https://chromium.googlesource.com/libyuv/libyuv && cd libyuv && make -f linux.mk CFLAGS="-O2 -fomit-frame-pointer -Iinclude/ -DHAVE_JPEG" CXXFLAGS="-O2 -fomit-frame-pointer -Iinclude/ -DHAVE_JPEG" libyuv.a && sudo cp libyuv.a /usr/lib && cd include && sudo cp -r * /usr/include && cd ../..
+- mkdir -p build && cd build && cmake .. && make
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+  slack:
+    secure: VWSe2aZro6UgqBq6vsC6zp/d0TeeiCw5tJ0e66X/Kp+6a1Pl0C19hjfaCUbLmXgUGfvPPI3IXIPmDIsWXWf9CocqLTVs7KmI6WS7qzFYvG7JJsnVs/nv21T+qHReYe55u0nLtdZddeLkBl7GBl6i+PoRYRNsOvD7h+ma0/0nagREblAL5+et4/LFV/1avJT556NNBPkYEVZWeNhv/4N3FsYeUS+I2P8KtLLgJNkHUZ7axIs+dDorffYb/pa5TgQo/07+Xd6XkOjH+THn+vwoV4MR+VP/S6pOuXW0dVHBaDdOT4A0tcjaBNWGZAyWw8OF5Z6r7J8yPAHhZrs5jGOQP6/IvAG4+jRvkKMLMvSswOCCWF5Vr7vQLztM/ExE/Zr8tUxGBfbPjuwUUlRgabbtU5QFgHeF/4BRMrCH8L2H5mjYOx8QD51iJNRxlEagQYKV9Di9Q+bAR701DQcz7Cup3/buQacwI3SpthPqttRh8xA2HLcmhpaWCZ+wlzPqXXYYTexDroQCy2peARuSaEuMX5Ljws8gQskEdOMudUVZWiCGgkrNTlpV09Vts6nJoW+BvgXJnH0V2WKrZjMcqPH+SyfPgACTUdUGqL0j0dAZWizPg5DLWmaF2ECVPlvBGJS7O/Jz1deklAcNx2/U2N7Q6ySVrGfBp0QUthaRyrl/T3E=
