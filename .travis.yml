@@ -19,9 +19,9 @@ install:
 - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 script:
 - git clone --depth 1 https://chromium.googlesource.com/libyuv/libyuv && cd libyuv
-  && make -f linux.mk CFLAGS="-O2 -fomit-frame-pointer -Iinclude/ -DHAVE_JPEG" CXXFLAGS="-O2
-  -fomit-frame-pointer -Iinclude/ -DHAVE_JPEG" libyuv.a && sudo cp libyuv.a /usr/lib
+  && make -f linux.mk libyuv.a && sudo cp libyuv.a /usr/lib
   && cd include && sudo cp -r * /usr/include && cd ../..
+- cd /tmp && wget https://www.1stvision.com/cameras/IDS/sw/uEye-Linux-4.90.06-64.tgz && tar xvzf uEye-Linux-4.90.06-64.tgz && ./ueyesdk-setup-4.90.06-usb-amd64.gz.run --nox11
 - mkdir -p build && cd build && cmake .. && make
 notifications:
   email:
