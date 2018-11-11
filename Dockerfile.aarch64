@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Part to build opendlv-device-camera-ueye.
-FROM resin/aarch64-debian:buster as builder
+FROM balenalib/aarch64-debian:buster as builder
 MAINTAINER Christian Berger "christian.berger@gu.se"
 
 # Set the env variable DEBIAN_FRONTEND to noninteractive
@@ -51,7 +51,7 @@ RUN [ "cross-build-end" ]
 
 
 # Part to deploy opendlv-device-camera-ueye.
-FROM resin/aarch64-debian:buster
+FROM balenalib/aarch64-debian:buster
 MAINTAINER Christian Berger "christian.berger@gu.se"
 
 RUN [ "cross-build-start" ]
