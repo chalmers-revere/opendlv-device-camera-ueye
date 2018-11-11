@@ -56,9 +56,7 @@ RUN apt-get update -y && \
         libgomp1
 
 WORKDIR /tmp
-COPY --from=builder /tmp/ueyesdk-setup-4.90.06-usb-amd64.gz.run .
-RUN cd /tmp && \
-    ./ueyesdk-setup-4.90.06-usb-amd64.gz.run --nox11
+COPY --from=builder /usr/lib/libueye_api.so /usr/lib/
 
 WORKDIR /usr/bin
 COPY --from=builder /tmp/bin/opendlv-device-camera-ueye .

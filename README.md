@@ -35,7 +35,7 @@ To run this microservice using our pre-built Docker multi-arch images to open
 a supported camera, simply start it as follows:
 
 ```
-docker run --rm -ti --init --ipc=host -v /tmp:/tmp --pid=host -v /var/run:/var/run -e DISPLAY=$DISPLAY chalmersrevere/opendlv-device-camera-ueye-amd64:v0.0.1 --width=752 --height=480 --pixel_clock=10 --freq=20 --verbose
+docker run --rm -ti --init --ipc=host -v /tmp:/tmp --pid=host -v /var/run:/var/run -e DISPLAY=$DISPLAY chalmersrevere/opendlv-device-camera-ueye-amd64:v0.0.2 --width=752 --height=480 --pixel_clock=10 --freq=20 --verbose
 ```
 
 ## Build from sources on the example of Ubuntu 16.04 LTS
