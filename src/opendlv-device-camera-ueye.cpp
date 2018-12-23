@@ -148,8 +148,10 @@ int32_t main(int32_t argc, char **argv) {
                     if (IS_SUCCESS == is_FreezeVideo(capture, IS_WAIT)) {
                         uint8_t *ueyeImagePtr{nullptr};
                         if (IS_SUCCESS == is_GetImageMem(capture, (void**)&(ueyeImagePtr))) {
+                            cluon::data::TimeStamp ts{cluon::time::now()};
                             // Transform data as I420 in sharedMemoryI420.
                             sharedMemoryI420->lock();
+                            sharedMemoryI420->setTimeStamp(ts);
                             {
                                 libyuv::UYVYToI420(ueyeImagePtr, WIDTH * 2 /* 2*WIDTH for YUYV 422*/,
                                                    reinterpret_cast<uint8_t*>(sharedMemoryI420->data()), WIDTH,
@@ -160,6 +162,7 @@ int32_t main(int32_t argc, char **argv) {
                             sharedMemoryI420->unlock();
 
                             sharedMemoryARGB->lock();
+                            sharedMemoryARGB->setTimeStamp(ts);
                             {
                                 libyuv::I420ToARGB(reinterpret_cast<uint8_t*>(sharedMemoryI420->data()), WIDTH,
                                                    reinterpret_cast<uint8_t*>(sharedMemoryI420->data()+(WIDTH * HEIGHT)), WIDTH/2,
